@@ -20,7 +20,7 @@ This is a date flag method for ActiveRecord models.
 
 == INSTALL:
 
-* sudo gem install date_flag --source http://gems.github.com/
+* sudo gem install theworkinggroup-date_flag --source http://gems.github.com/
 
 == LICENSE:
 
