@@ -1,0 +1,12 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+date_flag.gemspec
+init.rb
+install.rb
+lib/date_flag.rb
+tasks/date_flag_tasks.rake
+test/date_flag_test.rb
+test/test_helper.rb
+uninstall.rb

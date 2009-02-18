@@ -1,4 +1,6 @@
 module DateFlag
+  VERSION = '0.0.1'
+  
   def date_flag(field, options =  { })
     action = (options[:action] ? options[:action] : field.to_s.sub(/_at$/, '')).to_sym
     query = (options[:query] and options[:query].to_sym or action)
