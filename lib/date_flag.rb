@@ -45,7 +45,7 @@ module DateFlag
       value ? (value <= Time.now.utc) : false
     end
   
-    define_method(:"#{action}!") do
+    define_method(:"#{action}!") do |*at_time|
       # The action! method is used to set the trigger time. If the time is
       # already defined and is in the past, then the time is left unchanged.
       # If it is undefined or in the future, then the current time is
@@ -53,8 +53,10 @@ module DateFlag
       
       value = read_attribute(field)
       
-      unless (value and (value <= Time.now.utc))
-        write_attribute(field, Time.now.utc)
+      at_time = at_time.first || Time.now.utc
+      
+      unless (value and (value <= at_time))
+        write_attribute(field, at_time)
         save!
       end
     end
