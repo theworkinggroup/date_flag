@@ -1,6 +1,6 @@
 = date_flag
 
-* http://theworkinggroup.ca/
+* http://twg.ca/
 
 == DESCRIPTION:
 
@@ -20,7 +20,13 @@ This is a date flag method for ActiveRecord models.
 
 == INSTALL:
 
-* sudo gem install theworkinggroup-date_flag --source http://gems.github.com/
+This can be installed as a Ruby gem:
+
+  % sudo gem install theworkinggroup-date_flag --source http://gems.github.com/
+  
+Alternatively, it also functions as a standard Rails plugin:
+
+  % script/plugin install git://github.com/theworkinggroup/date_flag.git
 
 == LICENSE:
 
