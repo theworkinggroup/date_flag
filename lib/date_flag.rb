@@ -24,15 +24,13 @@ module DateFlag
       # will be saved as-is, and anything else will just assign the current
       # time.
       
-      unless (read_attribute(field))
-        case (value)
-        when nil, false, '', '0', 0:
-          write_attribute(field, nil)
-        when DateTime, Date, Time:
-          write_attribute(field, value)
-        else
-          write_attribute(field, Time.now.utc)
-        end
+      case (value)
+      when nil, false, '', '0', 0
+        write_attribute(field, nil)
+      when DateTime, Date, Time
+        write_attribute(field, value)
+      else
+        write_attribute(field, Time.now.utc) unless (read_attribute(field))
       end
     end
 
