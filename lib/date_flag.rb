@@ -36,11 +36,11 @@ module DateFlag
       named_scope scope_name, lambda { |*flag|
         case (flag.first)
         when false
-          { :conditions => "#{field} IS NULL" }
+          { :conditions => "`#{field}` IS NULL" }
         when true, nil
-          { :conditions => "#{field} IS NOT NULL" }
+          { :conditions => "`#{field}` IS NOT NULL" }
         else
-          { :conditions => { field => flag.first } }
+          { :conditions => "`#{field}`<=?", flag.first } }
         end
       }
     end
