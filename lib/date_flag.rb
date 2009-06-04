@@ -1,5 +1,5 @@
 module DateFlag
-  VERSION = '0.0.3'
+  VERSION = '0.1.0'
   
   # Usage:
   #
@@ -16,6 +16,34 @@ module DateFlag
   def date_flag(field, options =  { })
     action = (options[:action] ? options[:action] : field.to_s.sub(/_at$/, '')).to_sym
     query = (options[:query] and options[:query].to_sym or action)
+
+    scope_name =
+      case (options[:scope])
+      when nil
+        action
+      when false
+        false
+      else
+        options[:scope].to_s.to_sym
+      end
+    
+    case (scope_name)
+    when false, nil
+      # Skip this operation
+    when :send, :id
+      # TODO: Invalid names, should raise exception or warning
+    else
+      named_scope scope_name, lambda { |*flag|
+        case (flag.first)
+        when false
+          { :conditions => "#{field} IS NULL" }
+        when true, nil
+          { :conditions => "#{field} IS NOT NULL" }
+        else
+          { :conditions => { field => flag.first } }
+        end
+      }
+    end
     
     define_method(:"#{action}=") do |value|
       # The action= mutator method is used to manipulate the trigger time.
@@ -23,14 +51,14 @@ module DateFlag
       # false and will nil out the time. A DateTime, Date or Time object
       # will be saved as-is, and anything else will just assign the current
       # time.
-      
+
       case (value)
       when nil, false, '', '0', 0
         write_attribute(field, nil)
       when DateTime, Date, Time
         write_attribute(field, value)
       else
-        write_attribute(field, Time.now.utc) unless (read_attribute(field))
+        !read_attribute(field) and write_attribute(field, Time.now.utc)
       end
     end
 
