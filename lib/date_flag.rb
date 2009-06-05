@@ -40,7 +40,7 @@ module DateFlag
         when true, nil
           { :conditions => "`#{field}` IS NOT NULL" }
         else
-          { :conditions => "`#{field}`<=?", flag.first } }
+          { :conditions => [ "`#{field}`<=?", flag.first ] }
         end
       }
     end
