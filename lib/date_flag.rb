@@ -70,6 +70,7 @@ module DateFlag
       
       value ? (value <= Time.now.utc) : false
     end
+    alias_method action, :"#{action}?"
   
     define_method(:"#{action}!") do |*at_time|
       # The action! method is used to set the trigger time. If the time is
